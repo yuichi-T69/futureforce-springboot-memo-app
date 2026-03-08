@@ -25,12 +25,20 @@
                     <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></div>
                 </div>
 
+		<!--優先度選択ボタンの実装-->
+				<div class="priority-group">
+					<label th:each="p : ${priorities}" th:for="|priority-${p.name()}|" th:class="|priority-pill ${p.name().toLowerCase()}|">
+						<input class="priority-radio" type="radio" th:id="|priority-${p.name()}|" th:value="${p}" th:field="*{priority}">
+						<span th:text="${p.displayName}"></span>
+				 	</label>
+			 	</div>
+			 
                 <div class="form-group">
                     <label>内容：</label>
                     <textarea th:field="*{content}"></textarea>
                     <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error-message"></div>
                 </div>
-
+			 
                 <div class="form-button-container">
                     <button type="submit" class="btn btn-primary" th:text="${memo.id} != null ? '更新' : '作成'">作成</button>
                 </div>
@@ -39,5 +47,4 @@
     </div>
     <script th:src="@{/js/common.js}"></script>
 </body>
-
 </html>
