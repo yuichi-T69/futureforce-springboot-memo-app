@@ -11,25 +11,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
+
 @Entity
 @Data
 public class Memo {
-	//Priority enum を追加（高/中/低）
-	public enum Priority{
-		HIGH("高"),MEDIUM("中"),LOW("低");
-		private final String displayName;
-		Priority(String displayName){
-			this.displayName = displayName;
-		}
-		public String getDisplayName() {
-			return displayName;
-		}
-	}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,15 +40,9 @@ public class Memo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     //Memo エンティティに priority フィールドを追加
+    @NotNull(message = "優先度を選択してください")
     @Enumerated(EnumType.STRING)
     private Priority priority;
     
-    public Priority getPriority() {
-    	return priority;
-    }
-    
-    public void setPriority(Priority priority) {
-    	this.priority = priority;
-    }
     
 }
