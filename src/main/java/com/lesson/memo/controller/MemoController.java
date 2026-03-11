@@ -152,6 +152,9 @@ public class MemoController {
 
         }
         
+        list.sort(Comparator.comparing(l -> l.getPriority().ordinal()));
+
+        
         if (list.isEmpty()) {
             return "not-found"; 
         }
