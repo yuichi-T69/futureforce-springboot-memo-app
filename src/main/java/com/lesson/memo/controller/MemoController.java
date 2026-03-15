@@ -136,7 +136,8 @@ public class MemoController {
 
         return "redirect:/memo";
     }
-    
+
+ // 検索入力欄と入力フォームの実装
     @GetMapping("/search")
     public String search(
             @RequestParam(name = "keyword", required = false) String keyword,
@@ -150,10 +151,10 @@ public class MemoController {
         	list = memoRepository.findByTitleContainingOrContentContaining(keyword, keyword);
 
         }
-
+        
         list.sort(Comparator.comparing(l -> l.getPriority().ordinal()));
 
-
+        
         if (list.isEmpty()) {
             return "not-found"; 
         }
@@ -164,4 +165,6 @@ public class MemoController {
 
         return "memo-list";
     }
+
+
 }
